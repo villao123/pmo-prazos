@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>PMO Prazos · DB Diagnósticos</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
 <style>
   :root {
     --bg: #0b0e14;
@@ -31,7 +31,6 @@
     overflow-x: hidden;
   }
 
-  /* Background grid */
   body::before {
     content: '';
     position: fixed;
@@ -44,7 +43,6 @@
     z-index: 0;
   }
 
-  /* Header */
   header {
     position: relative;
     z-index: 10;
@@ -57,23 +55,14 @@
     backdrop-filter: blur(12px);
   }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
+  .logo { display: flex; align-items: center; gap: 14px; }
 
   .logo-badge {
-    width: 38px;
-    height: 38px;
+    width: 38px; height: 38px;
     background: linear-gradient(135deg, #00e5a0, #00b5ae);
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 800;
-    color: #0b0e14;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; color: #0b0e14;
   }
 
   .logo-text { font-size: 15px; font-weight: 700; letter-spacing: 0.02em; }
@@ -82,339 +71,220 @@
   .header-right { display: flex; gap: 10px; align-items: center; }
 
   .btn {
-    padding: 8px 18px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    transition: all 0.2s;
+    padding: 8px 18px; border-radius: 8px; border: none; cursor: pointer;
+    font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; transition: all 0.2s;
   }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--border);
-  }
+  .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
   .btn-ghost:hover { color: var(--text); border-color: var(--muted); }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #0b0e14;
-  }
+  .btn-primary { background: var(--accent); color: #0b0e14; }
   .btn-primary:hover { opacity: 0.85; }
 
-  /* Main */
   main {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 48px 40px;
+    position: relative; z-index: 1;
+    max-width: 1200px; margin: 0 auto; padding: 36px 40px;
   }
 
-  /* KPI strip */
-  .kpi-strip {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 40px;
-  }
-
-  .kpi {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px 26px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    transition: border-color 0.2s;
-  }
-
-  .kpi:hover { border-color: var(--muted); }
-
-  .kpi-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-
-  .kpi-icon.red { background: var(--red-dim); }
-  .kpi-icon.yellow { background: var(--yellow-dim); }
-  .kpi-icon.green { background: var(--green-dim); }
-
-  .kpi-num {
-    font-size: 32px;
-    font-weight: 800;
-    line-height: 1;
-  }
-
-  .kpi-num.red { color: var(--red); }
-  .kpi-num.yellow { color: var(--yellow); }
-  .kpi-num.green { color: var(--green); }
-
-  .kpi-label { font-size: 12px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
-
-  /* Section header */
-  .section-header {
+  .top-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 28px;
+    gap: 16px;
   }
 
-  .section-title {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .section-title::before {
-    content: '';
-    display: block;
-    width: 3px;
-    height: 14px;
-    border-radius: 2px;
-  }
-
-  .section-title.red::before { background: var(--red); }
-  .section-title.yellow::before { background: var(--yellow); }
-
-  /* Cards */
-  .cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px; }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px 24px;
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    align-items: center;
-    gap: 20px;
-    transition: all 0.2s;
-    animation: fadeIn 0.4s ease forwards;
-    opacity: 0;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .card:hover { border-color: var(--muted); transform: translateX(4px); }
-  .card.red { border-left: 3px solid var(--red); }
-  .card.yellow { border-left: 3px solid var(--yellow); }
-
-  .card-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-  .card-gp { font-size: 12px; color: var(--muted); }
-
-  .card-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    color: var(--muted);
-    text-align: right;
-  }
-
-  .badge {
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .badge.red { background: var(--red-dim); color: var(--red); }
-  .badge.yellow { background: var(--yellow-dim); color: var(--yellow); }
-
-  /* Empty state */
-  .empty {
-    text-align: center;
-    padding: 40px;
-    color: var(--muted);
-    font-size: 14px;
-    background: var(--surface);
-    border: 1px dashed var(--border);
-    border-radius: 12px;
-  }
-
-  /* Loading */
-  .loading {
-    text-align: center;
-    padding: 60px;
-    color: var(--muted);
-    font-size: 14px;
-  }
-
-  .spinner {
-    width: 32px;
-    height: 32px;
-    border: 2px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 16px;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Modal */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(4px);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .modal-overlay.open { display: flex; }
-
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px;
-    width: 100%;
-    max-width: 520px;
-    animation: modalIn 0.2s ease;
-  }
-
-  @keyframes modalIn {
-    from { opacity: 0; transform: scale(0.96); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 24px; }
-
-  .form-group { margin-bottom: 16px; }
-  .form-group label { display: block; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-
-  .form-group input, .form-group select {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    transition: border-color 0.2s;
-  }
-
-  .form-group input:focus, .form-group select:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
-
-  .msg { font-size: 13px; color: var(--accent); margin-top: 12px; min-height: 20px; }
-
-  /* Last update */
-  .last-update {
-    text-align: right;
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 32px;
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* Tab nav */
-  .tabs { display: flex; gap: 4px; margin-bottom: 32px; }
+  .tabs { display: flex; gap: 4px; }
   .tab {
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: all 0.2s;
-    background: transparent;
-    color: var(--muted);
-    font-family: 'Syne', sans-serif;
+    padding: 8px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    cursor: pointer; border: 1px solid transparent; transition: all 0.2s;
+    background: transparent; color: var(--muted); font-family: 'Syne', sans-serif;
   }
   .tab.active { background: var(--surface); border-color: var(--border); color: var(--text); }
   .tab:hover:not(.active) { color: var(--text); }
 
-  /* Admin panel */
+  .top-right { display: flex; align-items: center; gap: 12px; }
+
+  .search-wrap { position: relative; display: flex; align-items: center; }
+  .search-wrap svg { position: absolute; left: 12px; color: var(--muted); pointer-events: none; }
+  .search-input {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 14px 8px 36px; color: var(--text);
+    font-family: 'Syne', sans-serif; font-size: 13px; width: 220px;
+    transition: border-color 0.2s, width 0.3s;
+  }
+  .search-input::placeholder { color: var(--muted); }
+  .search-input:focus { outline: none; border-color: var(--accent); width: 280px; }
+
+  .last-update { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; white-space: nowrap; }
+
+  /* KPIs */
+  .kpi-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+
+  .kpi {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 24px 28px; display: flex; align-items: center; gap: 20px;
+    transition: all 0.2s; cursor: pointer; position: relative; overflow: hidden;
+  }
+  .kpi::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; opacity: 0; transition: opacity 0.2s;
+  }
+  .kpi.red::after { background: var(--red); }
+  .kpi.yellow::after { background: var(--yellow); }
+  .kpi.green-kpi::after { background: var(--green); }
+  .kpi:hover { border-color: var(--muted); transform: translateY(-2px); }
+  .kpi:hover::after { opacity: 1; }
+  .kpi.active-filter { border-color: var(--muted); }
+  .kpi.active-filter::after { opacity: 1; }
+
+  .kpi-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .kpi-icon.red { background: var(--red-dim); }
+  .kpi-icon.yellow { background: var(--yellow-dim); }
+  .kpi-icon.green { background: var(--green-dim); }
+
+  .kpi-info { flex: 1; }
+
+  .kpi-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px; line-height: 1; letter-spacing: 0.02em;
+  }
+  .kpi-num.red { color: var(--red); }
+  .kpi-num.yellow { color: var(--yellow); }
+  .kpi-num.green { color: var(--green); }
+
+  .kpi-label { font-size: 11px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+  .kpi-hint { font-size: 10px; color: var(--muted); margin-top: 6px; opacity: 0.6; }
+
+  /* Filter bar */
+  .filter-bar {
+    display: none; align-items: center; gap: 10px; margin-bottom: 20px;
+    padding: 10px 16px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; font-size: 13px; color: var(--muted);
+  }
+  .filter-bar.visible { display: flex; }
+  .filter-bar strong { color: var(--text); }
+  .filter-clear {
+    margin-left: auto; cursor: pointer; color: var(--muted); font-size: 12px;
+    text-decoration: underline; background: none; border: none; font-family: 'Syne', sans-serif;
+  }
+  .filter-clear:hover { color: var(--text); }
+
+  /* Sections */
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .section-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--muted); display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::before { content: ''; display: block; width: 3px; height: 14px; border-radius: 2px; }
+  .section-title.red::before { background: var(--red); }
+  .section-title.yellow::before { background: var(--yellow); }
+  .section-title.green::before { background: var(--green); }
+  .section-count { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+  /* Cards */
+  .cards { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 20px;
+    display: grid; grid-template-columns: 1fr 160px 140px;
+    align-items: center; gap: 16px;
+    transition: all 0.18s; animation: fadeIn 0.35s ease forwards; opacity: 0;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card:hover { border-color: var(--muted); transform: translateX(3px); }
+  .card.red { border-left: 3px solid var(--red); }
+  .card.yellow { border-left: 3px solid var(--yellow); }
+  .card.green { border-left: 3px solid var(--green); }
+
+  .card-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .card-gp { font-size: 11px; color: var(--muted); }
+
+  .card-date { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); text-align: center; }
+  .card-date-label { font-size: 10px; color: var(--muted); opacity: 0.6; text-align: center; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .badge {
+    padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;
+    white-space: nowrap; text-align: center; font-family: 'DM Mono', monospace;
+  }
+  .badge.red { background: var(--red-dim); color: var(--red); }
+  .badge.yellow { background: var(--yellow-dim); color: var(--yellow); }
+  .badge.green { background: var(--green-dim); color: var(--green); }
+
+  .empty {
+    text-align: center; padding: 32px; color: var(--muted); font-size: 13px;
+    background: var(--surface); border: 1px dashed var(--border); border-radius: 10px; margin-bottom: 32px;
+  }
+
+  .loading { text-align: center; padding: 60px; color: var(--muted); font-size: 14px; }
+  .spinner {
+    width: 32px; height: 32px; border: 2px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.8s linear infinite; margin: 0 auto 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px; width: 100%; max-width: 520px;
+    animation: modalIn 0.2s ease;
+  }
+  @keyframes modalIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+  .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 24px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .form-group input {
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 14px; color: var(--text);
+    font-family: 'Syne', sans-serif; font-size: 14px; transition: border-color 0.2s;
+  }
+  .form-group input:focus { outline: none; border-color: var(--accent); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
+  .msg { font-size: 13px; color: var(--accent); margin-top: 12px; min-height: 20px; }
+
+  /* Admin */
   #adminPanel { display: none; }
   #adminPanel.open { display: block; }
-
-  .admin-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
+  .admin-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .admin-search { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .admin-search input {
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 14px; color: var(--text);
+    font-family: 'Syne', sans-serif; font-size: 13px;
   }
-
+  .admin-search input:focus { outline: none; border-color: var(--accent); }
+  .admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
   .admin-table th {
-    text-align: left;
-    padding: 10px 16px;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
+    text-align: left; padding: 10px 16px; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); border-bottom: 1px solid var(--border);
   }
-
-  .admin-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: middle;
-  }
-
+  .admin-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
   .admin-table tr:last-child td { border-bottom: none; }
   .admin-table tr:hover td { background: rgba(255,255,255,0.02); }
-
   .admin-table input[type="date"] {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 6px 10px;
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 12px;
   }
-
   .admin-table input[type="date"]:focus { outline: none; border-color: var(--accent); }
-
   .btn-save-row {
-    padding: 5px 12px;
-    border-radius: 6px;
-    border: none;
-    background: var(--green-dim);
-    color: var(--green);
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Syne', sans-serif;
-    transition: all 0.2s;
+    padding: 5px 14px; border-radius: 6px; border: none;
+    background: var(--green-dim); color: var(--green); font-size: 12px; font-weight: 600;
+    cursor: pointer; font-family: 'Syne', sans-serif; transition: all 0.2s;
   }
-
   .btn-save-row:hover { background: var(--accent); color: #0b0e14; }
-
-  .admin-wrap {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-  }
 </style>
 </head>
 <body>
@@ -434,9 +304,20 @@
 </header>
 
 <main>
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('dashboard')">Dashboard</button>
-    <button class="tab" onclick="switchTab('admin')">Gerenciar prazos</button>
+  <div class="top-bar">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('dashboard', this)">Dashboard</button>
+      <button class="tab" onclick="switchTab('admin', this)">Gerenciar prazos</button>
+    </div>
+    <div class="top-right">
+      <div class="search-wrap" id="searchWrap">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="Buscar projeto..." oninput="filtrarBusca()"/>
+      </div>
+      <div class="last-update" id="lastUpdate"></div>
+    </div>
   </div>
 
   <!-- Dashboard -->
@@ -447,47 +328,70 @@
     </div>
 
     <div id="content" style="display:none">
-      <div class="last-update" id="lastUpdate"></div>
-
       <div class="kpi-strip">
-        <div class="kpi">
+        <div class="kpi red" onclick="filtrarKPI('atrasado')" id="kpiCardAtrasado">
           <div class="kpi-icon red">⚠</div>
-          <div>
+          <div class="kpi-info">
             <div class="kpi-num red" id="kpiAtrasados">0</div>
             <div class="kpi-label">Atrasados</div>
+            <div class="kpi-hint">Clique para filtrar</div>
           </div>
         </div>
-        <div class="kpi">
+        <div class="kpi yellow" onclick="filtrarKPI('atencao')" id="kpiCardAtencao">
           <div class="kpi-icon yellow">◷</div>
-          <div>
+          <div class="kpi-info">
             <div class="kpi-num yellow" id="kpiAtencao">0</div>
             <div class="kpi-label">Vencem em 30 dias</div>
+            <div class="kpi-hint">Clique para filtrar</div>
           </div>
         </div>
-        <div class="kpi">
+        <div class="kpi green-kpi" onclick="filtrarKPI('ok')" id="kpiCardOk">
           <div class="kpi-icon green">✓</div>
-          <div>
+          <div class="kpi-info">
             <div class="kpi-num green" id="kpiOk">0</div>
             <div class="kpi-label">No prazo</div>
+            <div class="kpi-hint">Clique para filtrar</div>
           </div>
         </div>
       </div>
 
-      <div class="section-header">
-        <div class="section-title red">Atrasados</div>
+      <div class="filter-bar" id="filterBar">
+        Exibindo: <strong id="filterLabel"></strong>
+        <button class="filter-clear" onclick="limparFiltro()">✕ Limpar filtro</button>
       </div>
-      <div class="cards" id="listaAtrasados"></div>
 
-      <div class="section-header">
-        <div class="section-title yellow">Atenção · Vencem em 30 dias</div>
+      <div id="secAtrasados">
+        <div class="section-header">
+          <div class="section-title red">Atrasados</div>
+          <div class="section-count" id="countAtrasados"></div>
+        </div>
+        <div class="cards" id="listaAtrasados"></div>
       </div>
-      <div class="cards" id="listaAtencao"></div>
+
+      <div id="secAtencao">
+        <div class="section-header">
+          <div class="section-title yellow">Atenção · Vencem em 30 dias</div>
+          <div class="section-count" id="countAtencao"></div>
+        </div>
+        <div class="cards" id="listaAtencao"></div>
+      </div>
+
+      <div id="secOk" style="display:none">
+        <div class="section-header">
+          <div class="section-title green">No prazo</div>
+          <div class="section-count" id="countOk"></div>
+        </div>
+        <div class="cards" id="listaOk"></div>
+      </div>
     </div>
   </div>
 
   <!-- Admin -->
   <div id="adminPanel">
     <div class="admin-wrap">
+      <div class="admin-search">
+        <input type="text" placeholder="Buscar projeto para editar prazo..." oninput="filtrarAdmin(this.value)"/>
+      </div>
       <table class="admin-table" translate="no">
         <thead>
           <tr>
@@ -503,7 +407,7 @@
   </div>
 </main>
 
-<!-- Modal cadastro -->
+<!-- Modal -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h2>Cadastrar projeto</h2>
@@ -536,19 +440,18 @@
 <script>
 const WORKER = 'https://pmo-monitor.vitormanu-dl05.workers.dev';
 let todosProj = [];
+let filtroAtivo = null;
 
 async function load() {
   document.getElementById('loading').style.display = 'block';
   document.getElementById('content').style.display = 'none';
 
   try {
-    // Busca prazos atrasados/atenção
     const [rPrazos, rProjetos] = await Promise.all([
       fetch(`${WORKER}/prazos`).then(r => r.json()),
       fetch(`${WORKER}/projetos`).then(r => r.json()),
     ]);
 
-    // Busca detalhes de todos os projetos para o admin e KPI "ok"
     const detalhes = await Promise.all(
       rProjetos.map(p => fetch(`${WORKER}/debug/${p.id}`).then(r => r.json()))
     );
@@ -557,63 +460,134 @@ async function load() {
 
     const atrasados = rPrazos.filter(p => p.status === 'atrasado');
     const atencao = rPrazos.filter(p => p.status === 'atencao');
-    const okCount = todosProj.filter(p => p.estimated_end).length - atrasados.length - atencao.length;
+    const idsAlerta = new Set(rPrazos.map(p => String(p.id)));
+    const okList = todosProj
+      .filter(p => p.estimated_end && !idsAlerta.has(String(p.id)))
+      .map(p => ({
+        id: p.id, nome: p.nome, gp: p.gp,
+        estimated_end: p.estimated_end,
+        dias: Math.ceil((new Date(p.estimated_end + 'T00:00:00') - new Date()) / (1000*60*60*24)),
+        status: 'ok'
+      }));
 
     document.getElementById('kpiAtrasados').textContent = atrasados.length;
     document.getElementById('kpiAtencao').textContent = atencao.length;
-    document.getElementById('kpiOk').textContent = Math.max(0, okCount);
+    document.getElementById('kpiOk').textContent = okList.length;
+    document.getElementById('countAtrasados').textContent = `${atrasados.length} projeto${atrasados.length !== 1 ? 's' : ''}`;
+    document.getElementById('countAtencao').textContent = `${atencao.length} projeto${atencao.length !== 1 ? 's' : ''}`;
+    document.getElementById('countOk').textContent = `${okList.length} projeto${okList.length !== 1 ? 's' : ''}`;
 
     renderCards('listaAtrasados', atrasados, 'red');
     renderCards('listaAtencao', atencao, 'yellow');
+    renderCards('listaOk', okList, 'green');
     renderAdmin(todosProj);
 
-    const agora = new Date().toLocaleString('pt-BR');
-    document.getElementById('lastUpdate').textContent = `Última atualização: ${agora}`;
+    if (filtroAtivo) filtrarKPI(filtroAtivo, true);
 
+    document.getElementById('lastUpdate').textContent = `Atualizado: ${new Date().toLocaleString('pt-BR')}`;
     document.getElementById('loading').style.display = 'none';
     document.getElementById('content').style.display = 'block';
   } catch(e) {
-    document.getElementById('loading').innerHTML = `<div style="color:var(--red)">Erro ao carregar dados.<br><small>${e.message}</small></div>`;
+    document.getElementById('loading').innerHTML = `<div style="color:var(--red)">Erro ao carregar.<br><small>${e.message}</small></div>`;
   }
 }
 
 function renderCards(elId, lista, tipo) {
   const el = document.getElementById(elId);
   if (!lista.length) {
-    el.innerHTML = `<div class="empty">Nenhum projeto ${tipo === 'red' ? 'atrasado' : 'a vencer em breve'} 🎉</div>`;
+    el.innerHTML = `<div class="empty">Nenhum projeto ${tipo === 'red' ? 'atrasado' : tipo === 'yellow' ? 'a vencer em breve' : 'no prazo'}</div>`;
     return;
   }
   el.innerHTML = lista.map((p, i) => {
-    const diasLabel = p.dias < 0
-      ? `${Math.abs(p.dias)} dias atrasado`
-      : `Vence em ${p.dias} dias`;
+    let diasLabel;
+    if (p.dias < 0) diasLabel = `${Math.abs(p.dias)}d atrasado`;
+    else if (p.dias === 0) diasLabel = `Vence hoje`;
+    else diasLabel = `${p.dias}d restantes`;
     const dataFmt = p.estimated_end ? new Date(p.estimated_end + 'T12:00:00').toLocaleDateString('pt-BR') : '—';
     return `
-      <div class="card ${tipo}" style="animation-delay:${i * 0.06}s">
+      <div class="card ${tipo}" style="animation-delay:${i * 0.04}s">
         <div>
           <div class="card-name">${p.nome}</div>
           <div class="card-gp">Gestor: ${p.gp || '—'}</div>
         </div>
-        <div class="card-date">${dataFmt}</div>
+        <div>
+          <div class="card-date-label">Término</div>
+          <div class="card-date">${dataFmt}</div>
+        </div>
         <div class="badge ${tipo}">${diasLabel}</div>
       </div>`;
   }).join('');
 }
 
+function filtrarKPI(tipo, silencioso = false) {
+  if (filtroAtivo === tipo && !silencioso) { limparFiltro(); return; }
+  filtroAtivo = tipo;
+
+  document.querySelectorAll('.kpi').forEach(k => k.classList.remove('active-filter'));
+  const map = { atrasado: 'kpiCardAtrasado', atencao: 'kpiCardAtencao', ok: 'kpiCardOk' };
+  document.getElementById(map[tipo])?.classList.add('active-filter');
+
+  document.getElementById('secAtrasados').style.display = tipo === 'atrasado' ? 'block' : 'none';
+  document.getElementById('secAtencao').style.display = tipo === 'atencao' ? 'block' : 'none';
+  document.getElementById('secOk').style.display = tipo === 'ok' ? 'block' : 'none';
+
+  const labels = { atrasado: 'Atrasados', atencao: 'Vencem em 30 dias', ok: 'No prazo' };
+  document.getElementById('filterLabel').textContent = labels[tipo];
+  document.getElementById('filterBar').classList.add('visible');
+}
+
+function limparFiltro() {
+  filtroAtivo = null;
+  document.querySelectorAll('.kpi').forEach(k => k.classList.remove('active-filter'));
+  document.getElementById('secAtrasados').style.display = 'block';
+  document.getElementById('secAtencao').style.display = 'block';
+  document.getElementById('secOk').style.display = 'none';
+  document.getElementById('filterBar').classList.remove('visible');
+  document.getElementById('searchInput').value = '';
+}
+
+function filtrarBusca() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  if (!q) { limparFiltro(); return; }
+  document.getElementById('secAtrasados').style.display = 'block';
+  document.getElementById('secAtencao').style.display = 'block';
+  document.getElementById('secOk').style.display = 'block';
+  document.getElementById('filterBar').classList.remove('visible');
+  filtroAtivo = null;
+  document.querySelectorAll('.kpi').forEach(k => k.classList.remove('active-filter'));
+  document.querySelectorAll('.card').forEach(card => {
+    card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
 function renderAdmin(projetos) {
+  window._adminProjetos = projetos;
+  _renderAdminFiltrado(projetos);
+}
+
+function filtrarAdmin(q) {
+  const lista = (window._adminProjetos || []).filter(p =>
+    !q || (p.nome || '').toLowerCase().includes(q.toLowerCase())
+  );
+  _renderAdminFiltrado(lista);
+}
+
+function _renderAdminFiltrado(lista) {
   const tbody = document.getElementById('adminBody');
-  if (!projetos.length) {
-    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:30px">Nenhum projeto cadastrado</td></tr>`;
+  if (!lista.length) {
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:30px">Nenhum projeto encontrado</td></tr>`;
     return;
   }
-  tbody.innerHTML = projetos.map(p => {
+  tbody.innerHTML = lista.map(p => {
     const endVal = p.estimated_end || '';
+    const gpSafe = (p.gp || '').replace(/'/g, "\\'");
+    const nomeSafe = (p.nome || '').replace(/'/g, "\\'");
     return `
       <tr>
         <td>${p.nome || p.id}</td>
         <td style="color:var(--muted)">${p.gp || '—'}</td>
         <td><input type="date" id="date_${p.id}" value="${endVal}"/></td>
-        <td><button class="btn-save-row" onclick="salvarPrazo('${p.id}','${p.nome}','${p.gp}')">Salvar</button></td>
+        <td><button class="btn-save-row" onclick="salvarPrazo('${p.id}','${nomeSafe}','${gpSafe}')">Salvar</button></td>
       </tr>`;
   }).join('');
 }
@@ -621,22 +595,21 @@ function renderAdmin(projetos) {
 async function salvarPrazo(id, nome, gp) {
   const val = document.getElementById(`date_${id}`).value;
   const r = await fetch(`${WORKER}/projetos`, {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
+    method: 'POST', headers: {'Content-Type':'application/json'},
     body: JSON.stringify({ id, nome, gp, estimated_end: val })
   });
   if (r.ok) {
     const btn = document.querySelector(`button[onclick="salvarPrazo('${id}','${nome}','${gp}')"]`);
-    btn.textContent = '✓ Salvo';
-    setTimeout(() => { btn.textContent = 'Salvar'; load(); }, 1500);
+    if (btn) { btn.textContent = '✓ Salvo'; setTimeout(() => { btn.textContent = 'Salvar'; load(); }, 1500); }
   }
 }
 
-function switchTab(tab) {
+function switchTab(tab, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
+  el.classList.add('active');
   document.getElementById('dashPanel').style.display = tab === 'dashboard' ? 'block' : 'none';
   document.getElementById('adminPanel').className = tab === 'admin' ? 'open' : '';
+  document.getElementById('searchWrap').style.display = tab === 'dashboard' ? 'flex' : 'none';
 }
 
 function openModal() { document.getElementById('modalOverlay').classList.add('open'); }
@@ -652,22 +625,16 @@ async function cadastrar() {
   const gp = document.getElementById('fGp').value.trim();
   const estimated_end = document.getElementById('fEnd').value;
   const msg = document.getElementById('modalMsg');
-
   if (!id || !nome || !gp) { msg.textContent = 'Preencha ID, nome e GP.'; return; }
-
   msg.textContent = 'Salvando...';
   const r = await fetch(`${WORKER}/projetos`, {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
+    method: 'POST', headers: {'Content-Type':'application/json'},
     body: JSON.stringify({ id, nome, gp, estimated_end })
   });
-
   if (r.ok) {
     msg.textContent = '✓ Projeto cadastrado!';
     setTimeout(() => { closeModal(); load(); }, 1000);
-  } else {
-    msg.textContent = 'Erro ao cadastrar.';
-  }
+  } else { msg.textContent = 'Erro ao cadastrar.'; }
 }
 
 load();
