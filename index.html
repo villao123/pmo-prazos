@@ -285,6 +285,12 @@
     cursor: pointer; font-family: 'Syne', sans-serif; transition: all 0.2s;
   }
   .btn-save-row:hover { background: var(--accent); color: #0b0e14; }
+  .btn-del-row {
+    padding: 5px 10px; border-radius: 6px; border: none;
+    background: rgba(255,77,77,0.1); color: #ff4d4d; font-size: 12px; font-weight: 600;
+    cursor: pointer; font-family: 'Syne', sans-serif; transition: all 0.2s;
+  }
+  .btn-del-row:hover { background: #ff4d4d; color: #fff; }
 </style>
 </head>
 <body>
@@ -398,6 +404,7 @@
             <th>Projeto</th>
             <th>Gestor de Projetos</th>
             <th>Término Estimado</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -588,8 +595,16 @@ function _renderAdminFiltrado(lista) {
         <td style="color:var(--muted)">${p.gp || '—'}</td>
         <td><input type="date" id="date_${p.id}" value="${endVal}"/></td>
         <td><button class="btn-save-row" onclick="salvarPrazo('${p.id}','${nomeSafe}','${gpSafe}')">Salvar</button></td>
+        <td><button class="btn-del-row" onclick="excluirProjeto('${p.id}','${nomeSafe}')">✕</button></td>
       </tr>`;
   }).join('');
+}
+
+async function excluirProjeto(id, nome) {
+  if (!confirm('Excluir "' + nome + '" do painel de prazos?')) return;
+  const r = await fetch(`${WORKER}/projetos/${id}`, { method: 'DELETE' });
+  if (r.ok) { load(); }
+  else { alert('Erro ao excluir.'); }
 }
 
 async function salvarPrazo(id, nome, gp) {
