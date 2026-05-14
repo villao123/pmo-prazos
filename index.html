@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" translate="no">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -488,12 +488,12 @@
   <!-- Admin -->
   <div id="adminPanel">
     <div class="admin-wrap">
-      <table class="admin-table">
+      <table class="admin-table" translate="no">
         <thead>
           <tr>
             <th>Projeto</th>
-            <th>GP</th>
-            <th>Término estimado</th>
+            <th>Gestor de Projetos</th>
+            <th>Término Estimado</th>
             <th></th>
           </tr>
         </thead>
@@ -522,7 +522,7 @@
       <input type="text" id="fNome" placeholder="ex: Projeto DB Next"/>
     </div>
     <div class="form-group">
-      <label>GP responsável</label>
+      <label>Gestor de Projetos</label>
       <input type="text" id="fGp" placeholder="ex: Guilherme Fabre"/>
     </div>
     <div class="msg" id="modalMsg"></div>
@@ -592,7 +592,7 @@ function renderCards(elId, lista, tipo) {
       <div class="card ${tipo}" style="animation-delay:${i * 0.06}s">
         <div>
           <div class="card-name">${p.nome}</div>
-          <div class="card-gp">GP: ${p.gp || '—'}</div>
+          <div class="card-gp">Gestor: ${p.gp || '—'}</div>
         </div>
         <div class="card-date">${dataFmt}</div>
         <div class="badge ${tipo}">${diasLabel}</div>
