@@ -210,27 +210,29 @@
   .card-date-label { font-size: 10px; color: var(--muted); opacity: 0.6; text-align: center; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
 
   .card-pct-wrap { display: flex; flex-direction: column; gap: 10px; }
-  .card-pct-cols { display: flex; gap: 20px; }
-  .card-pct-col { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-  .card-pct-header { display: flex; justify-content: space-between; align-items: center; }
-  .card-pct-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
-  .card-pct-bar-bg { height: 7px; background: rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
-  .card-pct-bar { height: 7px; border-radius: 4px; transition: width 0.8s ease; }
-  .card-pct-val { font-size: 14px; font-family: 'DM Mono', monospace; font-weight: 700; }
-  .card-pct-val.gp { color: var(--accent); }
-  .card-pct-val.artia { color: var(--yellow); }
-  .card-pct-diff { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; font-family: 'DM Mono', monospace; }
-  .card-pct-diff.ahead { background: rgba(0,229,160,0.1); color: var(--accent); }
-  .card-pct-diff.behind { background: rgba(255,77,77,0.1); color: var(--red); }
-  .card-pct-diff.equal { background: rgba(255,255,255,0.05); color: var(--muted); }
+  .card-pct-cols { display: flex; gap: 24px; }
+  .card-pct-col { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .card-pct-header { display: flex; align-items: center; gap: 8px; }
+  .card-pct-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; white-space: nowrap; }
+  .card-pct-val { font-size: 15px; font-family: 'DM Mono', monospace; font-weight: 800; }
+  .card-pct-val.gp { color: var(--accent); text-shadow: 0 0 12px rgba(0,229,160,0.5); }
+  .card-pct-val.artia { color: var(--yellow); text-shadow: 0 0 12px rgba(245,200,66,0.5); }
+  .card-pct-bar-bg { height: 12px; background: rgba(255,255,255,0.07); border-radius: 6px; overflow: hidden; }
+  .card-pct-bar { height: 12px; border-radius: 6px; transition: width 0.8s ease; }
+  .card-pct-bar.gp { background: linear-gradient(90deg, #00b894, #00e5a0); box-shadow: 0 0 8px rgba(0,229,160,0.4); }
+  .card-pct-bar.artia { background: linear-gradient(90deg, #d4a800, #f5c842); box-shadow: 0 0 8px rgba(245,200,66,0.4); }
+  .card-pct-diff { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .card-pct-diff.ahead { background: rgba(0,229,160,0.12); color: var(--accent); border: 1px solid rgba(0,229,160,0.2); }
+  .card-pct-diff.behind { background: rgba(255,77,77,0.12); color: var(--red); border: 1px solid rgba(255,77,77,0.2); }
+  .card-pct-diff.equal { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid rgba(255,255,255,0.08); }
 
   .badge {
-    padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;
+    padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700;
     white-space: nowrap; text-align: center; font-family: 'DM Mono', monospace;
   }
-  .badge.red { background: var(--red-dim); color: var(--red); }
-  .badge.yellow { background: var(--yellow-dim); color: var(--yellow); }
-  .badge.green { background: var(--green-dim); color: var(--green); }
+  .badge.red { background: transparent; color: var(--red); border: 1.5px solid var(--red); }
+  .badge.yellow { background: transparent; color: var(--yellow); border: 1.5px solid var(--yellow); }
+  .badge.green { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
 
   .empty {
     text-align: center; padding: 32px; color: var(--muted); font-size: 13px;
@@ -566,14 +568,14 @@ function renderCards(elId, lista, tipo) {
                 <span class="card-pct-label">% Conclusão GP</span>
                 <span class="card-pct-val gp">${pctGP !== null ? pctGP.toFixed(1) + '%' : '—'}</span>
               </div>
-              <div class="card-pct-bar-bg"><div class="card-pct-bar" style="width:${Math.min(pctGP||0,100)}%;background:var(--accent);"></div></div>
+              <div class="card-pct-bar-bg"><div class="card-pct-bar gp" style="width:${Math.min(pctGP||0,100)}%;"></div></div>
             </div>
             <div class="card-pct-col">
               <div class="card-pct-header">
                 <span class="card-pct-label">% Previsão Artia</span>
                 <span class="card-pct-val artia">${pctArtia !== null ? pctArtia.toFixed(1) + '%' : '—'}</span>
               </div>
-              <div class="card-pct-bar-bg"><div class="card-pct-bar" style="width:${Math.min(pctArtia||0,100)}%;background:var(--yellow);"></div></div>
+              <div class="card-pct-bar-bg"><div class="card-pct-bar artia" style="width:${Math.min(pctArtia||0,100)}%;"></div></div>
             </div>
           </div>
           ${diffHtml}
