@@ -209,15 +209,19 @@
   .card-date { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); text-align: center; }
   .card-date-label { font-size: 10px; color: var(--muted); opacity: 0.6; text-align: center; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
 
-  .card-pct-wrap { display: flex; flex-direction: column; gap: 6px; }
-  .card-pct-row { display: flex; flex-direction: column; gap: 3px; }
-  .card-pct-label { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; }
-  .card-pct-bar-bg { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; position: relative; }
-  .card-pct-bar { height: 4px; border-radius: 2px; transition: width 0.8s ease; }
-  .card-pct-val { font-size: 10px; font-family: 'DM Mono', monospace; font-weight: 600; }
+  .card-pct-wrap { display: flex; flex-direction: column; gap: 8px; min-width: 200px; }
+  .card-pct-row { display: flex; flex-direction: column; gap: 4px; }
+  .card-pct-header { display: flex; justify-content: space-between; align-items: center; }
+  .card-pct-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+  .card-pct-bar-bg { height: 7px; background: rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
+  .card-pct-bar { height: 7px; border-radius: 4px; transition: width 0.8s ease; }
+  .card-pct-val { font-size: 12px; font-family: 'DM Mono', monospace; font-weight: 700; }
   .card-pct-val.gp { color: var(--accent); }
   .card-pct-val.artia { color: var(--yellow); }
-  .card-pct-val.muted { color: var(--muted); }
+  .card-pct-diff { display: flex; align-items: center; gap: 6px; margin-top: 2px; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; font-family: 'DM Mono', monospace; width: fit-content; }
+  .card-pct-diff.ahead { background: rgba(0,229,160,0.1); color: var(--accent); }
+  .card-pct-diff.behind { background: rgba(255,77,77,0.1); color: var(--red); }
+  .card-pct-diff.equal { background: rgba(255,255,255,0.05); color: var(--muted); }
 
   .badge {
     padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;
@@ -536,26 +540,44 @@ function renderCards(elId, lista, tipo) {
     else diasLabel = `${p.dias}d restantes`;
     const dataFmt = p.estimated_end ? new Date(p.estimated_end + 'T12:00:00').toLocaleDateString('pt-BR') : '—';
 
-    const pctGP = p.percent_complete != null ? Number(p.percent_complete).toFixed(1) : null;
-    const pctArtia = p.percent_complete_estimated != null ? Number(p.percent_complete_estimated).toFixed(1) : null;
+    const pctGP = p.percent_complete != null ? Number(p.percent_complete) : null;
+    const pctArtia = p.percent_complete_estimated != null ? Number(p.percent_complete_estimated) : null;
 
-    const pctBlock = (pctGP !== null || pctArtia !== null) ? `
-      <div class="card-pct-wrap">
-        <div class="card-pct-row">
-          <div class="card-pct-label">% GP</div>
-          <div class="card-pct-bar-bg">
-            <div class="card-pct-bar" style="width:${Math.min(pctGP||0,100)}%;background:var(--accent);"></div>
+    let pctBlock;
+    if (pctGP !== null || pctArtia !== null) {
+      let diffHtml = '';
+      if (pctGP !== null && pctArtia !== null) {
+        const diff = pctGP - pctArtia;
+        const absDiff = Math.abs(diff).toFixed(1);
+        if (diff > 0.5) {
+          diffHtml = `<div class="card-pct-diff ahead">▲ ${absDiff}% adiantado</div>`;
+        } else if (diff < -0.5) {
+          diffHtml = `<div class="card-pct-diff behind">▼ ${absDiff}% abaixo do esperado</div>`;
+        } else {
+          diffHtml = `<div class="card-pct-diff equal">= No esperado</div>`;
+        }
+      }
+      pctBlock = `
+        <div class="card-pct-wrap">
+          <div class="card-pct-row">
+            <div class="card-pct-header">
+              <span class="card-pct-label">% GP</span>
+              <span class="card-pct-val gp">${pctGP !== null ? pctGP.toFixed(1) + '%' : '—'}</span>
+            </div>
+            <div class="card-pct-bar-bg"><div class="card-pct-bar" style="width:${Math.min(pctGP||0,100)}%;background:var(--accent);"></div></div>
           </div>
-          <div class="card-pct-val gp">${pctGP !== null ? pctGP + '%' : '—'}</div>
-        </div>
-        <div class="card-pct-row">
-          <div class="card-pct-label">% Artia</div>
-          <div class="card-pct-bar-bg">
-            <div class="card-pct-bar" style="width:${Math.min(pctArtia||0,100)}%;background:var(--yellow);"></div>
+          <div class="card-pct-row">
+            <div class="card-pct-header">
+              <span class="card-pct-label">% Artia</span>
+              <span class="card-pct-val artia">${pctArtia !== null ? pctArtia.toFixed(1) + '%' : '—'}</span>
+            </div>
+            <div class="card-pct-bar-bg"><div class="card-pct-bar" style="width:${Math.min(pctArtia||0,100)}%;background:var(--yellow);"></div></div>
           </div>
-          <div class="card-pct-val artia">${pctArtia !== null ? pctArtia + '%' : '—'}</div>
-        </div>
-      </div>` : `<div class="card-pct-wrap"><div class="card-pct-label" style="color:var(--muted);font-size:10px;">Sem dados de %</div></div>`;
+          ${diffHtml}
+        </div>`;
+    } else {
+      pctBlock = `<div class="card-pct-wrap"><span class="card-pct-label" style="color:var(--muted);">Sem dados de %</span></div>`;
+    }
 
     return `
       <div class="card ${tipo}" style="animation-delay:${i * 0.04}s">
