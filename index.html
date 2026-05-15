@@ -484,8 +484,22 @@ async function load() {
         id: p.id, nome: p.nome, gp: p.gp,
         estimated_end: p.estimated_end,
         dias: Math.ceil((new Date(p.estimated_end + 'T00:00:00') - new Date()) / (1000*60*60*24)),
-        status: 'ok'
+        status: 'ok',
+        percent_complete: p.percent_complete ?? null,
+        percent_complete_estimated: p.percent_complete_estimated ?? null,
       }));
+
+    // Enriquecer atrasados e atenção com os % do debug
+    const debugMap = {};
+    todosProj.forEach(p => { debugMap[String(p.id)] = p; });
+    atrasados.forEach(p => {
+      const d = debugMap[String(p.id)];
+      if (d) { p.percent_complete = d.percent_complete ?? null; p.percent_complete_estimated = d.percent_complete_estimated ?? null; }
+    });
+    atencao.forEach(p => {
+      const d = debugMap[String(p.id)];
+      if (d) { p.percent_complete = d.percent_complete ?? null; p.percent_complete_estimated = d.percent_complete_estimated ?? null; }
+    });
 
     document.getElementById('kpiAtrasados').textContent = atrasados.length;
     document.getElementById('kpiAtencao').textContent = atencao.length;
