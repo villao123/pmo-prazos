@@ -296,6 +296,11 @@
     padding: 6px 10px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 12px;
   }
   .admin-table input[type="date"]:focus { outline: none; border-color: var(--accent); }
+  .admin-table input[type="text"] {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; color: var(--text); font-family: 'Syne', sans-serif; font-size: 13px; width: 100%;
+  }
+  .admin-table input[type="text"]:focus { outline: none; border-color: var(--accent); }
   .btn-save-row {
     padding: 5px 14px; border-radius: 6px; border: none;
     background: var(--green-dim); color: var(--green); font-size: 12px; font-weight: 600;
@@ -666,9 +671,9 @@ function _renderAdminFiltrado(lista) {
     return `
       <tr>
         <td>${p.nome || p.id}</td>
-        <td style="color:var(--muted)">${p.gp || '—'}</td>
+        <td><input type="text" id="gp_${p.id}" value="${p.gp || ''}" placeholder="Nome do GP" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:6px 10px;color:var(--text);font-family:'Syne',sans-serif;font-size:13px;width:100%;"/></td>
         <td><input type="date" id="date_${p.id}" value="${endVal}"/></td>
-        <td><button class="btn-save-row" onclick="salvarPrazo('${p.id}','${nomeSafe}','${gpSafe}')">Salvar</button></td>
+        <td><button class="btn-save-row" onclick="salvarPrazo('${p.id}','${nomeSafe}')">Salvar</button></td>
         <td><button class="btn-del-row" onclick="excluirProjeto('${p.id}','${nomeSafe}')">✕</button></td>
       </tr>`;
   }).join('');
@@ -681,14 +686,15 @@ async function excluirProjeto(id, nome) {
   else { alert('Erro ao excluir.'); }
 }
 
-async function salvarPrazo(id, nome, gp) {
+async function salvarPrazo(id, nome) {
   const val = document.getElementById(`date_${id}`).value;
+  const gp = document.getElementById(`gp_${id}`).value.trim();
   const r = await fetch(`${WORKER}/projetos`, {
     method: 'POST', headers: {'Content-Type':'application/json'},
     body: JSON.stringify({ id, nome, gp, estimated_end: val })
   });
   if (r.ok) {
-    const btn = document.querySelector(`button[onclick="salvarPrazo('${id}','${nome}','${gp}')"]`);
+    const btn = document.querySelector(`button[onclick="salvarPrazo('${id}','${nome}')"]`);
     if (btn) { btn.textContent = '✓ Salvo'; setTimeout(() => { btn.textContent = 'Salvar'; load(); }, 1500); }
   }
 }
