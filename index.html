@@ -58,7 +58,13 @@ main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
 .status-pip.orange{background:var(--orange);box-shadow:0 0 4px var(--orange);}
 .status-pip.yellow{background:var(--yellow);}
 .status-pip.green{background:var(--green);}
-.row-name{font-size:14px;font-weight:700;margin-bottom:2px;}
+.row-name{font-size:14px;font-weight:700;margin-bottom:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.row-name-text{flex:1;}
+.situacao-inline{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;text-transform:capitalize;}
+.situacao-inline.andamento{background:rgba(16,217,138,.2);color:var(--green);}
+.situacao-inline.standby{background:rgba(59,130,246,.2);color:var(--blue);}
+.situacao-inline.implantado{background:rgba(234,179,8,.2);color:var(--yellow);}
+.situacao-inline.other{background:rgba(157,165,180,.2);color:var(--muted);}
 .row-gp{font-size:12px;color:var(--muted);}
 .td{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--muted);}
 .td-gp{color:var(--green);font-weight:700;font-size:14px;}
@@ -134,36 +140,14 @@ main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
   </div>
 </header>
 <main>
-  <div id="loading" class="loading"><div class="spinner"></div>Carregando...</div>
-  <div id="content" style="display:none">
-    <div class="hero">
-      <div class="hero-kpi red" onclick="filtrar('atrasado')">
-        <div class="hero-top"><div class="hero-icon red">⚠</div></div>
-        <div class="hero-num" id="nA">0</div>
-        <div class="hero-lbl">Atrasados</div>
-      </div>
-      <div class="hero-kpi orange" onclick="filtrar('risco')">
-        <div class="hero-top"><div class="hero-icon orange">⚡</div></div>
-        <div class="hero-num" id="nR">0</div>
-        <div class="hero-lbl">Risco de atraso</div>
-      </div>
-      <div class="hero-kpi yellow" onclick="filtrar('atencao')">
-        <div class="hero-top"><div class="hero-icon yellow">◷</div></div>
-        <div class="hero-num" id="nV">0</div>
-        <div class="hero-lbl">Vencem em 30d</div>
-      </div>
-      <div class="hero-kpi green" onclick="filtrar('ok')">
-        <div class="hero-top"><div class="hero-icon green">✓</div></div>
-        <div class="hero-num" id="nO">0</div>
-        <div class="hero-lbl">No prazo</div>
-      </div>
-    </div>
-    <div class="main-grid">
+  <div class="hero" id="kpis"></div>
+  <div class="main-grid">
+    <div>
       <div class="table-wrap">
         <div class="search-bar-wrap">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input class="search-input" id="searchInput" type="text" placeholder="Buscar projeto..." oninput="filtrarBusca()"/>
-          <button class="search-clear" onclick="limparBusca()">✕</button>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="6" cy="6" r="5"/><path d="m11 11 4 4"/></svg>
+          <input class="search-input" id="searchInput" type="text" placeholder="Pesquisar" onkeyup="filtrarBusca()"/>
+          <button class="search-clear" onclick="limparBusca()" style="display:none;" id="searchClear">✕</button>
         </div>
         <div class="table-header">
           <div class="th">Projeto</div>
@@ -173,65 +157,71 @@ main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
         </div>
         <div class="table-body" id="tableBody"></div>
       </div>
-      <div class="side-panel">
-        <div class="side-card">
-          <div class="side-title">Distribuição do portfólio</div>
-          <div class="donut-wrap">
-            <div class="donut-center-wrap">
-              <svg id="donutSvg" viewBox="0 0 120 120"></svg>
-              <div class="donut-center-text">
-                <div class="donut-center-num" id="donutTotal">0</div>
-                <div class="donut-center-lbl">projetos</div>
-              </div>
-            </div>
-            <div class="donut-legend" id="donutLegend"></div>
-          </div>
+    </div>
+    <div class="side-panel">
+      <div class="side-card">
+        <div class="side-title">Distribuição do portfólio</div>
+        <div class="donut-wrap">
+          <div class="donut-center-wrap"><svg id="donutSvg"></svg><div class="donut-center-text"><div class="donut-center-num" id="donutTotal">0</div><div class="donut-center-lbl">Total</div></div></div>
+          <div class="donut-legend" id="donutLegend"></div>
         </div>
-        <div class="side-card">
-          <div class="side-title">Ranking · % Conclusão GP</div>
-          <div class="rank-list" id="miniList"></div>
-        </div>
+      </div>
+      <div class="donut-tooltip" id="donutTooltip"></div>
+      <div class="side-card">
+        <div class="side-title">Ranking · % Conclusão GP</div>
+        <div class="rank-list" id="miniList"></div>
       </div>
     </div>
   </div>
 </main>
-<div class="donut-tooltip" id="donutTooltip"></div>
 <script>
-const WORKER='https://pmo-monitor.vitormanu-dl05.workers.dev';
-let allData={atrasado:[],risco:[],atencao:[],ok:[]};
 let filtroAtivo=null;
+let dados=[];
 
 async function load(){
-  document.getElementById('loading').style.display='block';
-  document.getElementById('content').style.display='none';
   try{
-    const[rP,rPj]=await Promise.all([fetch(`${WORKER}/prazos`).then(r=>r.json()),fetch(`${WORKER}/projetos`).then(r=>r.json())]);
-    const det=await Promise.all(rPj.map(p=>fetch(`${WORKER}/debug/${p.id}`).then(r=>r.json())));
-    const todosProj=det.filter(d=>d.id);
-    const dbg={};todosProj.forEach(p=>{dbg[String(p.id)]=p;});
-    const atrasados=rP.filter(p=>p.status==='atrasado');
-    const risco=rP.filter(p=>p.status==='atencao'&&p.diferenca_percent!==undefined);
-    const atencao=rP.filter(p=>p.status==='atencao'&&p.diferenca_percent===undefined);
-    const ids=new Set(rP.map(p=>String(p.id)));
-    const ok=todosProj.filter(p=>p.estimated_end&&!ids.has(String(p.id))).map(p=>({...p,dias:Math.ceil((new Date(p.estimated_end+'T00:00:00')-new Date())/(1000*60*60*24)),status:'ok'}));
-    [...atrasados,...risco,...atencao].forEach(p=>{const d=dbg[String(p.id)];if(d){p.percent_complete=d.percent_complete??null;p.percent_complete_estimated=d.percent_complete_estimated??null;}});
-    allData={atrasado:atrasados,risco,atencao,ok};
-    document.getElementById('nA').textContent=atrasados.length;
-    document.getElementById('nR').textContent=risco.length;
-    document.getElementById('nV').textContent=atencao.length;
-    document.getElementById('nO').textContent=ok.length;
+    const res=await fetch('https://pmo-monitor.vitormanu-dl05.workers.dev/prazos');
+    dados=await res.json();
     document.getElementById('upd').textContent=new Date().toLocaleTimeString('pt-BR');
     renderTable();
-    renderDonut(atrasados.length,risco.length,atencao.length,ok.length);
-    renderMini([...atrasados,...risco,...atencao,...ok]);
-    document.getElementById('loading').style.display='none';
-    document.getElementById('content').style.display='block';
-  }catch(e){document.getElementById('loading').innerHTML=`<div style="color:var(--red)">Erro: ${e.message}</div>`;}
+    const atrasados=dados.filter(p=>p.status==='atrasado').length;
+    const risco=dados.filter(p=>p.status==='atrasado'&&p.dias<30).length;
+    const atencao=dados.filter(p=>p.status==='atencao').length;
+    const ok=dados.filter(p=>p.status==='ok').length;
+    renderDonut(atrasados,risco,atencao,ok);
+    renderMini(dados);
+    renderKpis(atrasados,risco,atencao,ok);
+  }catch(e){console.error(e);document.getElementById('tableBody').innerHTML=`<div class="loading">Erro ao carregar: ${e.message}</div>`;}
+}
+
+function renderKpis(a,r,v,o){
+  const html=`
+    <div class="hero-kpi" onclick="filtrar('atrasado')">
+      <div class="hero-top"><div class="hero-icon red">⚠</div><div class="hero-pct"></div></div>
+      <div class="hero-num">${a}</div>
+      <div class="hero-lbl">Atrasados</div>
+    </div>
+    <div class="hero-kpi" onclick="filtrar('risco')">
+      <div class="hero-top"><div class="hero-icon orange">⚡</div><div class="hero-pct"></div></div>
+      <div class="hero-num">${r}</div>
+      <div class="hero-lbl">Risco de atraso</div>
+    </div>
+    <div class="hero-kpi" onclick="filtrar('atencao')">
+      <div class="hero-top"><div class="hero-icon yellow">⏱</div><div class="hero-pct"></div></div>
+      <div class="hero-num">${v}</div>
+      <div class="hero-lbl">Vencen em 30d</div>
+    </div>
+    <div class="hero-kpi" onclick="filtrar('ok')">
+      <div class="hero-top"><div class="hero-icon green">✓</div><div class="hero-pct"></div></div>
+      <div class="hero-num">${o}</div>
+      <div class="hero-lbl">No prazo</div>
+    </div>
+  `;
+  document.getElementById('kpis').innerHTML=html;
 }
 
 function renderTable(){
-  const listas=filtroAtivo?[{lista:allData[filtroAtivo],cls:filtroAtivo}]:[{lista:allData.atrasado,cls:'red'},{lista:allData.risco,cls:'orange'},{lista:allData.atencao,cls:'yellow'},{lista:allData.ok,cls:'green'}];
-  const el=document.getElementById('tableBody');
+  const listas=[{lista:dados.filter(p=>p.status==='atrasado'),cls:'red'},{lista:dados.filter(p=>p.status==='atencao'),cls:'yellow'},{lista:dados.filter(p=>p.status==='ok'),cls:'green'}];
   let html='';
   listas.forEach(({lista,cls})=>{
     lista.forEach(p=>{
@@ -254,14 +244,22 @@ function renderTable(){
           </div>
           ${pG!==null&&pA!==null?`<div class="dual-bar-diff-label" style="color:${diffCls==='behind'?'var(--red)':diffCls==='ahead'?'var(--green)':'var(--muted)'}">${diffTxt}</div>`:''}
         </div>`:'—';
+      
+      // ← SITUACAO INLINE NO NOME
+      const situacao=p.situacao?p.situacao.toLowerCase().trim():'';
+      const situacaoCls=situacao==='andamento'?'andamento':situacao==='stand by'||situacao==='standby'?'standby':situacao==='implantado'?'implantado':situacao?'other':'';
+      const situacaoLabel=situacao?situacao.charAt(0).toUpperCase()+situacao.slice(1):'';
+      const situacaoBadge=situacao?`<span class="situacao-inline ${situacaoCls}">${situacaoLabel}</span>`:'';
+      
       html+=`<div class="table-row">
-        <div><div class="row-status"><div class="status-pip ${cls}"></div><div><div class="row-name">${p.nome}</div><div class="row-gp">${p.gp||'—'}</div></div></div></div>
+        <div><div class="row-status"><div class="status-pip ${cls}"></div><div><div class="row-name"><span class="row-name-text">${p.nome}</span>${situacaoBadge}</div><div class="row-gp">${p.gp||'—'}</div></div></div></div>
         <div class="td">${dataFmt}</div>
         <div>${dualBar}</div>
         <div><div class="td-badge ${cls}">${diasLbl}</div></div>
       </div>`;
     });
   });
+  const el=document.getElementById('tableBody');
   el.innerHTML=html||`<div class="empty">Nenhum projeto</div>`;
 }
 
@@ -277,7 +275,6 @@ function renderDonut(a,r,v,o){
   let angle=-90;
   const tip=document.getElementById('donutTooltip');
   
-  // Animação: começa com sweep=0 e expande
   const svg=document.getElementById('donutSvg');
   svg.innerHTML=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="var(--s2)"/>`;
   
@@ -323,7 +320,6 @@ function renderDonut(a,r,v,o){
 }
 
 function renderMini(lista){
-  // Ordena pelos mais problemáticos: maior diferença Artia - GP primeiro
   const comPct=lista.filter(p=>p.percent_complete!=null&&p.percent_complete_estimated!=null)
     .sort((a,b)=>{
       const diffA=Number(a.percent_complete_estimated)-Number(a.percent_complete);
@@ -334,7 +330,6 @@ function renderMini(lista){
     const pct=Number(p.percent_complete);
     const pctArtia=Number(p.percent_complete_estimated);
     const diff=pctArtia-pct;
-    // Cor baseada na diferença (gravidade)
     const cor=diff>30?'var(--red)':diff>15?'var(--orange)':diff>5?'var(--yellow)':'var(--green)';
     const nome=(p.nome||'').replace('Projeto ','');
     return`<div class="rank-item">
