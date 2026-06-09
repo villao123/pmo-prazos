@@ -10,7 +10,6 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;min-height:100vh;}
 body::after{content:'';position:fixed;top:0;right:0;width:600px;height:600px;background:radial-gradient(circle,rgba(16,217,138,.04) 0%,transparent 70%);pointer-events:none;}
-
 header{padding:18px 40px;display:flex;align-items:center;justify-content:space-between;}
 .brand{font-size:14px;font-weight:800;letter-spacing:-.3px;}
 .brand span{color:var(--accent);}
@@ -18,10 +17,7 @@ header{padding:18px 40px;display:flex;align-items:center;justify-content:space-b
 .upd-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);padding:4px 10px;border:1px solid var(--b1);border-radius:4px;}
 .btn-r{padding:7px 16px;border-radius:8px;border:1px solid var(--b2);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;font-family:'Manrope',sans-serif;transition:all .2s;}
 .btn-r:hover{border-color:var(--accent);color:var(--accent);}
-
 main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
-
-/* Hero KPIs */
 .hero{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:20px;border-radius:12px;overflow:hidden;border:1px solid var(--b1);}
 .hero-kpi{background:var(--s1);padding:16px 24px;cursor:pointer;transition:background .2s;position:relative;}
 .hero-kpi:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;bottom:20%;width:1px;background:var(--b1);}
@@ -33,7 +29,6 @@ main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
 .hero-icon.orange{background:rgba(249,115,22,.12);}
 .hero-icon.yellow{background:rgba(234,179,8,.12);}
 .hero-icon.green{background:rgba(16,217,138,.12);}
-.hero-pct{font-size:10px;font-family:'IBM Plex Mono',monospace;padding:2px 6px;border-radius:4px;}
 .hero-num{font-size:36px;font-weight:800;line-height:1;letter-spacing:-1px;font-family:'IBM Plex Mono',monospace;}
 .hero-kpi.red .hero-num{color:var(--red);}
 .hero-kpi.orange .hero-num{color:var(--orange);}
@@ -41,15 +36,10 @@ main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
 .hero-kpi.green .hero-num{color:var(--green);}
 .hero-lbl{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-top:3px;}
 .hero-count{font-size:11px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-top:2px;}
-
-/* Main grid */
 .main-grid{display:grid;grid-template-columns:1fr 300px;gap:20px;}
-
-/* Table style */
 .table-wrap{background:var(--s1);border:1px solid var(--b1);border-radius:14px;overflow:hidden;}
 .table-header{display:grid;grid-template-columns:1.2fr 90px 280px 120px;padding:10px 20px;border-bottom:1px solid var(--b1);background:var(--s2);}
 .th{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
-.table-body{}
 .table-row{display:grid;grid-template-columns:1.2fr 90px 280px 120px;padding:16px 20px;border-bottom:1px solid var(--b1);align-items:center;transition:background .15s;}
 .table-row:last-child{border-bottom:none;}
 .table-row:hover{background:var(--s2);}
@@ -68,14 +58,11 @@ main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
 .situacao-inline.other{background:rgba(157,165,180,.2);color:var(--muted);}
 .row-gp{font-size:12px;color:var(--muted);}
 .td{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--muted);}
-.td-gp{color:var(--green);font-weight:700;font-size:14px;}
-.td-artia{color:var(--yellow);font-weight:700;font-size:14px;}
 .td-badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;}
 .td-badge.red{background:rgba(240,69,90,.12);color:var(--red);}
 .td-badge.orange{background:rgba(249,115,22,.12);color:var(--orange);}
 .td-badge.yellow{background:rgba(234,179,8,.12);color:var(--yellow);}
 .td-badge.green{background:rgba(16,217,138,.12);color:var(--green);}
-.td-diff{font-size:10px;}
 .dual-bar-wrap{display:flex;flex-direction:column;gap:5px;}
 .dual-bar-labels{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;}
 .dual-bar-label-gp{font-size:12px;font-weight:700;font-family:'IBM Plex Mono',monospace;}
@@ -86,10 +73,6 @@ main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
 .dual-bar-diff-label{font-size:12px;font-weight:700;font-family:'IBM Plex Mono',monospace;display:inline-block;margin-top:3px;padding:2px 8px;border-radius:4px;}
 .td-diff.behind{color:var(--red);}
 .td-diff.ahead{color:var(--green);}
-.td-diff.equal{color:var(--muted);}
-
-/* Side panel */
-.side-panel{}
 .side-card{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:18px;margin-bottom:12px;}
 .side-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:14px;}
 .donut-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;}
@@ -99,11 +82,10 @@ main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
 .donut-center-num{font-size:26px;font-weight:800;font-family:'IBM Plex Mono',monospace;color:var(--text);line-height:1;}
 .donut-center-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
 .donut-legend{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;width:100%;}
-.dl-item{display:flex;align-items:center;gap:6px;font-size:11px;}
+.dl-item{display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer;}
 .dl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
 .dl-label{color:var(--muted);flex:1;}
 .dl-val{font-family:'IBM Plex Mono',monospace;font-weight:700;}
-
 .rank-list{display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto;padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--b2) transparent;}
 .rank-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:var(--s2);border:1px solid var(--b1);transition:all .15s;}
 .rank-item:hover{border-color:var(--b2);}
@@ -114,21 +96,14 @@ main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
 .rank-bar-bg{height:5px;background:var(--b1);border-radius:3px;}
 .rank-bar-fill{height:5px;border-radius:3px;transition:width .8s ease;}
 .rank-pct{font-size:12px;font-weight:700;font-family:'IBM Plex Mono',monospace;flex-shrink:0;width:36px;text-align:right;}
-
 .loading{text-align:center;padding:60px;color:var(--muted);}
 .donut-tooltip{position:fixed;background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:700;pointer-events:none;z-index:999;display:none;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.4);}
-@keyframes donutIn{from{transform:rotate(-90deg) scale(.8);opacity:0;}to{transform:rotate(0deg) scale(1);opacity:1;}}
-.donut-animated{animation:donutIn .6s ease forwards;}
 .donut-path{cursor:pointer;transition:opacity .2s;}
 .donut-path:hover{opacity:1!important;filter:brightness(1.2);}
-.spinner{width:28px;height:28px;border:2px solid var(--b1);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
-@keyframes spin{to{transform:rotate(360deg);}}
 .search-bar-wrap{padding:12px 16px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:10px;background:var(--s2);}
 .search-bar-wrap svg{color:var(--muted);flex-shrink:0;}
 .search-input{background:transparent;border:none;outline:none;color:var(--text);font-family:'Manrope',sans-serif;font-size:13px;flex:1;}
 .search-input::placeholder{color:var(--muted);}
-.search-clear{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:0;line-height:1;}
-.search-clear:hover{color:var(--text);}
 .empty{padding:32px;text-align:center;color:var(--muted);font-size:12px;}
 </style>
 </head>
@@ -147,8 +122,7 @@ main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
       <div class="table-wrap">
         <div class="search-bar-wrap">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="6" cy="6" r="5"/><path d="m11 11 4 4"/></svg>
-          <input class="search-input" id="searchInput" type="text" placeholder="Pesquisar" onkeyup="filtrarBusca()"/>
-          <button class="search-clear" onclick="limparBusca()" style="display:none;" id="searchClear">✕</button>
+          <input class="search-input" id="searchInput" type="text" placeholder="Pesquisar" onkeyup="renderTable()"/>
         </div>
         <div class="table-header">
           <div class="th">Projeto</div>
@@ -184,107 +158,76 @@ async function load(){
     const res=await fetch('https://pmo-monitor.vitormanu-dl05.workers.dev/prazos');
     dados=await res.json();
     document.getElementById('upd').textContent=new Date().toLocaleTimeString('pt-BR');
-    renderTable();
     
-    // ← LÓGICA CORRETA DE CONTAGEM
-    const atrasados = dados.filter(p => p.dias < 0 || p.diferenca_percent > 10).length;
-    const risco = dados.filter(p => p.dias >= 0 && p.diferenca_percent > 0 && p.diferenca_percent <= 10).length;
-    const atencao = dados.filter(p => p.dias >= 0 && p.dias <= 30 && p.diferenca_percent <= 0).length;
-    const ok = dados.filter(p => p.dias > 30 && p.diferenca_percent <= 0).length;
+    const atrasados=dados.filter(p=>p.dias<0||p.diferenca_percent>10).length;
+    const risco=dados.filter(p=>p.dias>=0&&p.diferenca_percent>0&&p.diferenca_percent<=10).length;
+    const atencao=dados.filter(p=>p.dias>=0&&p.dias<=30&&p.diferenca_percent<=0).length;
+    const ok=dados.filter(p=>p.dias>30&&p.diferenca_percent<=0).length;
     
-    renderDonut(atrasados, risco, atencao, ok);
+    renderKpis(atrasados,risco,atencao,ok);
+    renderDonut(atrasados,risco,atencao,ok);
     renderMini(dados);
-    renderKpis(atrasados, risco, atencao, ok);
+    renderTable();
   }catch(e){console.error(e);document.getElementById('tableBody').innerHTML=`<div class="loading">Erro ao carregar: ${e.message}</div>`;}
 }
 
-function renderKpis(a, r, v, o){
-  const html=`
-    <div class="hero-kpi" onclick="filtrar('atrasado')">
-      <div class="hero-top"><div class="hero-icon red">⚠</div><div class="hero-pct"></div></div>
-      <div class="hero-num">${a}</div>
-      <div class="hero-lbl">Atrasados</div>
-      <div class="hero-count">${a} projeto${a !== 1 ? 's' : ''}</div>
-    </div>
-    <div class="hero-kpi" onclick="filtrar('risco')">
-      <div class="hero-top"><div class="hero-icon orange">⚡</div><div class="hero-pct"></div></div>
-      <div class="hero-num">${r}</div>
-      <div class="hero-lbl">Risco de atraso</div>
-      <div class="hero-count">${r} projeto${r !== 1 ? 's' : ''}</div>
-    </div>
-    <div class="hero-kpi" onclick="filtrar('atencao')">
-      <div class="hero-top"><div class="hero-icon yellow">⏱</div><div class="hero-pct"></div></div>
-      <div class="hero-num">${v}</div>
-      <div class="hero-lbl">Vencen em 30d</div>
-      <div class="hero-count">${v} projeto${v !== 1 ? 's' : ''}</div>
-    </div>
-    <div class="hero-kpi" onclick="filtrar('ok')">
-      <div class="hero-top"><div class="hero-icon green">✓</div><div class="hero-pct"></div></div>
-      <div class="hero-num">${o}</div>
-      <div class="hero-lbl">No prazo</div>
-      <div class="hero-count">${o} projeto${o !== 1 ? 's' : ''}</div>
-    </div>
-  `;
+function renderKpis(a,r,v,o){
+  const html=`<div class="hero-kpi" onclick="filtrar('atrasado')"><div class="hero-top"><div class="hero-icon red">⚠</div></div><div class="hero-num">${a}</div><div class="hero-lbl">Atrasados</div><div class="hero-count">${a} projeto${a!==1?'s':''}</div></div><div class="hero-kpi" onclick="filtrar('risco')"><div class="hero-top"><div class="hero-icon orange">⚡</div></div><div class="hero-num">${r}</div><div class="hero-lbl">Risco de atraso</div><div class="hero-count">${r} projeto${r!==1?'s':''}</div></div><div class="hero-kpi" onclick="filtrar('atencao')"><div class="hero-top"><div class="hero-icon yellow">⏱</div></div><div class="hero-num">${v}</div><div class="hero-lbl">Vencen em 30d</div><div class="hero-count">${v} projeto${v!==1?'s':''}</div></div><div class="hero-kpi" onclick="filtrar('ok')"><div class="hero-top"><div class="hero-icon green">✓</div></div><div class="hero-num">${o}</div><div class="hero-lbl">No prazo</div><div class="hero-count">${o} projeto${o!==1?'s':''}</div></div>`;
   document.getElementById('kpis').innerHTML=html;
 }
 
 function renderTable(){
-  const listas=[{lista:dados.filter(p => p.dias < 0 || p.diferenca_percent > 10),cls:'red'},{lista:dados.filter(p => p.dias >= 0 && p.diferenca_percent > 0 && p.diferenca_percent <= 10),cls:'orange'},{lista:dados.filter(p => p.dias >= 0 && p.dias <= 30 && p.diferenca_percent <= 0),cls:'yellow'},{lista:dados.filter(p => p.dias > 30 && p.diferenca_percent <= 0),cls:'green'}];
-  let html='';
-  listas.forEach(({lista,cls})=>{
-    lista.forEach(p=>{
-      const pG=p.percent_complete!=null?Number(p.percent_complete):null;
-      const pA=p.percent_complete_estimated!=null?Number(p.percent_complete_estimated):null;
-      const dataFmt=p.estimated_end?new Date(p.estimated_end+'T12:00:00').toLocaleDateString('pt-BR'):'—';
-      const diasLbl=p.dias<0?`${Math.abs(p.dias)}d atrasado`:p.dias===0?'Hoje':`${p.dias}d rest.`;
-      let diffCls='equal',diffTxt='=';
-      if(pG!==null&&pA!==null){const d=pG-pA;diffCls=d>0.5?'ahead':d<-0.5?'behind':'equal';diffTxt=d>0.5?`▲${Math.abs(d).toFixed(1)}%`:d<-0.5?`▼${Math.abs(d).toFixed(1)}%`:'=';}
-      const gpColor=pG!==null?(pG>=80?'var(--green)':pG>=50?'var(--yellow)':'var(--orange)'):'var(--green)';
-      const dualBar=pG!==null||pA!==null?`
-        <div class="dual-bar-wrap">
-          <div class="dual-bar-labels">
-            <span class="dual-bar-label-gp" style="color:${gpColor}">GP ${pG!==null?pG.toFixed(1)+'%':'—'}</span>
-            <span class="dual-bar-label-artia">Artia ${pA!==null?pA.toFixed(1)+'%':'—'}</span>
-          </div>
-          <div class="dual-bar-track">
-            ${pA!==null?`<div class="dual-bar-artia" style="width:${Math.min(pA,100)}%"></div>`:''}
-            ${pG!==null?`<div class="dual-bar-gp" style="width:${Math.min(pG,100)}%;background:${gpColor}"></div>`:''}
-          </div>
-          ${pG!==null&&pA!==null?`<div class="dual-bar-diff-label" style="color:${diffCls==='behind'?'var(--red)':diffCls==='ahead'?'var(--green)':'var(--muted)'}">${diffTxt}</div>`:''}
-        </div>`:'—';
-      
-      const situacao=p.situacao?p.situacao.toLowerCase().trim():'';
-      const situacaoCls=situacao==='andamento'?'andamento':situacao==='stand by'||situacao==='standby'?'standby':situacao==='implantado'?'implantado':situacao?'other':'';
-      const situacaoLabel=situacao?situacao.charAt(0).toUpperCase()+situacao.slice(1):'';
-      const situacaoBadge=situacao?`<span class="situacao-inline ${situacaoCls}">${situacaoLabel}</span>`:'';
-      
-      html+=`<div class="table-row">
-        <div><div class="row-status"><div class="status-pip ${cls}"></div><div><div class="row-name"><span class="row-name-text">${p.nome}</span>${situacaoBadge}</div><div class="row-gp">${p.gp||'—'}</div></div></div></div>
-        <div class="td">${dataFmt}</div>
-        <div>${dualBar}</div>
-        <div><div class="td-badge ${cls}">${diasLbl}</div></div>
-      </div>`;
-    });
+  const searchTerm=document.getElementById('searchInput').value.toLowerCase().trim();
+  
+  // Aplica AMBOS os filtros: status + busca
+  let filtered=dados.filter(p=>{
+    // Filtro de status
+    let matchStatus=true;
+    if(filtroAtivo==='atrasado') matchStatus=p.dias<0||p.diferenca_percent>10;
+    else if(filtroAtivo==='risco') matchStatus=p.dias>=0&&p.diferenca_percent>0&&p.diferenca_percent<=10;
+    else if(filtroAtivo==='atencao') matchStatus=p.dias>=0&&p.dias<=30&&p.diferenca_percent<=0;
+    else if(filtroAtivo==='ok') matchStatus=p.dias>30&&p.diferenca_percent<=0;
+    
+    // Filtro de busca
+    const matchSearch=!searchTerm||(p.nome.toLowerCase().includes(searchTerm)||p.gp.toLowerCase().includes(searchTerm));
+    
+    return matchStatus&&matchSearch;
   });
+  
+  let html='';
+  filtered.forEach(p=>{
+    let cls='green';
+    if(p.dias<0||p.diferenca_percent>10)cls='red';
+    else if(p.dias>=0&&p.diferenca_percent>0&&p.diferenca_percent<=10)cls='orange';
+    else if(p.dias>=0&&p.dias<=30&&p.diferenca_percent<=0)cls='yellow';
+    
+    const pG=p.percent_complete!=null?Number(p.percent_complete):null;
+    const pA=p.percent_complete_estimated!=null?Number(p.percent_complete_estimated):null;
+    const dataFmt=p.estimated_end?new Date(p.estimated_end+'T12:00:00').toLocaleDateString('pt-BR'):'—';
+    const diasLbl=p.dias<0?`${Math.abs(p.dias)}d atrasado`:p.dias===0?'Hoje':`${p.dias}d rest.`;
+    let diffCls='equal',diffTxt='=';
+    if(pG!==null&&pA!==null){const d=pG-pA;diffCls=d>0.5?'ahead':d<-0.5?'behind':'equal';diffTxt=d>0.5?`▲${Math.abs(d).toFixed(1)}%`:d<-0.5?`▼${Math.abs(d).toFixed(1)}%`:'=';}
+    const gpColor=pG!==null?(pG>=80?'var(--green)':pG>=50?'var(--yellow)':'var(--orange)'):'var(--green)';
+    const dualBar=pG!==null||pA!==null?`<div class="dual-bar-wrap"><div class="dual-bar-labels"><span class="dual-bar-label-gp" style="color:${gpColor}">GP ${pG!==null?pG.toFixed(1)+'%':'—'}</span><span class="dual-bar-label-artia">Artia ${pA!==null?pA.toFixed(1)+'%':'—'}</span></div><div class="dual-bar-track">${pA!==null?`<div class="dual-bar-artia" style="width:${Math.min(pA,100)}%"></div>`:''}${pG!==null?`<div class="dual-bar-gp" style="width:${Math.min(pG,100)}%;background:${gpColor}"></div>`:''}</div>${pG!==null&&pA!==null?`<div class="dual-bar-diff-label" style="color:${diffCls==='behind'?'var(--red)':diffCls==='ahead'?'var(--green)':'var(--muted)'}">${diffTxt}</div>`:''}</div>`:'—';
+    const situacao=p.situacao?p.situacao.toLowerCase().trim():'';
+    const situacaoCls=situacao==='andamento'?'andamento':situacao==='stand by'||situacao==='standby'?'standby':situacao==='implantado'?'implantado':situacao?'other':'';
+    const situacaoLabel=situacao?situacao.charAt(0).toUpperCase()+situacao.slice(1):'';
+    const situacaoBadge=situacao?`<span class="situacao-inline ${situacaoCls}">${situacaoLabel}</span>`:'';
+    html+=`<div class="table-row"><div><div class="row-status"><div class="status-pip ${cls}"></div><div><div class="row-name"><span class="row-name-text">${p.nome}</span>${situacaoBadge}</div><div class="row-gp">${p.gp||'—'}</div></div></div></div><div class="td">${dataFmt}</div><div>${dualBar}</div><div><div class="td-badge ${cls}">${diasLbl}</div></div></div>`;
+  });
+  
   const el=document.getElementById('tableBody');
-  el.innerHTML=html||`<div class="empty">Nenhum projeto</div>`;
+  el.innerHTML=html||`<div class="empty">Nenhum projeto encontrado</div>`;
 }
 
 function renderDonut(a,r,v,o){
   const total=a+r+v+o||1;
-  const segs=[
-    {v:a,c:'#f0455a',label:'Atrasados',tipo:'atrasado'},
-    {v:r,c:'#f97316',label:'Risco',tipo:'risco'},
-    {v:v,c:'#eab308',label:'30 dias',tipo:'atencao'},
-    {v:o,c:'#10d98a',label:'No prazo',tipo:'ok'}
-  ];
+  const segs=[{v:a,c:'#f0455a',label:'Atrasados',tipo:'atrasado'},{v:r,c:'#f97316',label:'Risco',tipo:'risco'},{v:v,c:'#eab308',label:'30 dias',tipo:'atencao'},{v:o,c:'#10d98a',label:'No prazo',tipo:'ok'}];
   const R=46,cx=60,cy=60,strokeW=14;
   let angle=-90;
   const tip=document.getElementById('donutTooltip');
-  
   const svg=document.getElementById('donutSvg');
   svg.innerHTML=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="var(--s2)"/>`;
-  
   let delay=0;
   segs.forEach(s=>{
     const pct=s.v/total;
@@ -304,15 +247,8 @@ function renderDonut(a,r,v,o){
     path.setAttribute('opacity','0');
     path.classList.add('donut-path');
     path.style.transition=`opacity .3s ease ${delay}s`;
-    path.addEventListener('mouseenter',e=>{
-      tip.style.display='block';
-      tip.style.color=s.c;
-      tip.textContent=`${s.label}: ${s.v} (${Math.round(pct*100)}%)`;
-    });
-    path.addEventListener('mousemove',e=>{
-      tip.style.left=(e.clientX+12)+'px';
-      tip.style.top=(e.clientY-30)+'px';
-    });
+    path.addEventListener('mouseenter',e=>{tip.style.display='block';tip.style.color=s.c;tip.textContent=`${s.label}: ${s.v} (${Math.round(pct*100)}%)`;});
+    path.addEventListener('mousemove',e=>{tip.style.left=(e.clientX+12)+'px';tip.style.top=(e.clientY-30)+'px';});
     path.addEventListener('mouseleave',()=>{tip.style.display='none';});
     path.addEventListener('click',()=>{filtrar(s.tipo);});
     svg.appendChild(path);
@@ -320,52 +256,28 @@ function renderDonut(a,r,v,o){
     delay+=0.1;
     angle+=sweep;
   });
-  
   document.getElementById('donutTotal').textContent=total;
   const labels=[['Atrasados',a,'#f0455a','atrasado'],['Risco',r,'#f97316','risco'],['30 dias',v,'#eab308','atencao'],['No prazo',o,'#10d98a','ok']];
-  document.getElementById('donutLegend').innerHTML=labels.map(([l,n,c,t])=>`<div class="dl-item" style="cursor:pointer" onclick="filtrar('${t}')"><div class="dl-dot" style="background:${c}"></div><span class="dl-label">${l}</span><span class="dl-val" style="color:${c}">${n}</span></div>`).join('');
+  document.getElementById('donutLegend').innerHTML=labels.map(([l,n,c,t])=>`<div class="dl-item" onclick="filtrar('${t}')"><div class="dl-dot" style="background:${c}"></div><span class="dl-label">${l}</span><span class="dl-val" style="color:${c}">${n}</span></div>`).join('');
 }
 
 function renderMini(lista){
-  const comPct=lista.filter(p=>p.percent_complete!=null&&p.percent_complete_estimated!=null)
-    .sort((a,b)=>{
-      const diffA=Number(a.percent_complete_estimated)-Number(a.percent_complete);
-      const diffB=Number(b.percent_complete_estimated)-Number(b.percent_complete);
-      return diffB-diffA;
-    });
-  document.getElementById('miniList').innerHTML=comPct.map((p,i)=>{
-    const pct=Number(p.percent_complete);
-    const pctArtia=Number(p.percent_complete_estimated);
-    const diff=pctArtia-pct;
-    const cor=diff>30?'var(--red)':diff>15?'var(--orange)':diff>5?'var(--yellow)':'var(--green)';
-    const nome=(p.nome||'').replace('Projeto ','');
-    return`<div class="rank-item">
-      <span class="rank-num">${i+1}</span>
-      <div class="rank-info">
-        <div class="rank-name">${nome}</div>
-        <div class="rank-bar-wrap"><div class="rank-bar-bg"><div class="rank-bar-fill" style="width:${Math.min(pct,100)}%;background:${cor}"></div></div></div>
-      </div>
-      <span class="rank-pct" style="color:${cor}">${pct.toFixed(0)}%</span>
-    </div>`;
-  }).join('');
+  const comPct=lista.filter(p=>p.percent_complete!=null&&p.percent_complete_estimated!=null).sort((a,b)=>{const diffA=Number(a.percent_complete_estimated)-Number(a.percent_complete);const diffB=Number(b.percent_complete_estimated)-Number(b.percent_complete);return diffB-diffA;});
+  document.getElementById('miniList').innerHTML=comPct.map((p,i)=>{const pct=Number(p.percent_complete);const pctArtia=Number(p.percent_complete_estimated);const diff=pctArtia-pct;const cor=diff>30?'var(--red)':diff>15?'var(--orange)':diff>5?'var(--yellow)':'var(--green)';const nome=(p.nome||'').replace('Projeto ','');return`<div class="rank-item"><span class="rank-num">${i+1}</span><div class="rank-info"><div class="rank-name">${nome}</div><div class="rank-bar-wrap"><div class="rank-bar-bg"><div class="rank-bar-fill" style="width:${Math.min(pct,100)}%;background:${cor}"></div></div></div></div><span class="rank-pct" style="color:${cor}">${pct.toFixed(0)}%</span></div>`;}).join('');
 }
 
-function filtrarBusca(){
-  const q=document.getElementById('searchInput').value.toLowerCase().trim();
-  document.querySelectorAll('.table-row').forEach(row=>{
-    row.style.display=row.textContent.toLowerCase().includes(q)?'':'none';
-  });
-}
-function limparBusca(){
-  document.getElementById('searchInput').value='';
-  document.querySelectorAll('.table-row').forEach(row=>{row.style.display='';});
-}
 function filtrar(tipo){
   filtroAtivo=filtroAtivo===tipo?null:tipo;
   document.querySelectorAll('.hero-kpi').forEach(k=>k.classList.remove('active'));
-  if(filtroAtivo){const m={atrasado:0,risco:1,atencao:2,ok:3};document.querySelectorAll('.hero-kpi')[m[filtroAtivo]]?.classList.add('active');}
+  if(filtroAtivo){
+    const m={atrasado:0,risco:1,atencao:2,ok:3};
+    document.querySelectorAll('.hero-kpi')[m[filtroAtivo]]?.classList.add('active');
+  }
+  // Limpa busca ao mudar filtro
+  document.getElementById('searchInput').value='';
   renderTable();
 }
+
 load();
 </script>
 </body>
