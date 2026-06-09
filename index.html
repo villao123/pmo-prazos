@@ -40,6 +40,7 @@ main{max-width:1320px;margin:0 auto;padding:0 40px 40px;}
 .hero-kpi.yellow .hero-num{color:var(--yellow);}
 .hero-kpi.green .hero-num{color:var(--green);}
 .hero-lbl{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-top:3px;}
+.hero-count{font-size:11px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-top:2px;}
 
 /* Main grid */
 .main-grid{display:grid;grid-template-columns:1fr 300px;gap:20px;}
@@ -184,44 +185,51 @@ async function load(){
     dados=await res.json();
     document.getElementById('upd').textContent=new Date().toLocaleTimeString('pt-BR');
     renderTable();
-    const atrasados=dados.filter(p=>p.status==='atrasado').length;
-    const risco=dados.filter(p=>p.status==='atrasado'&&p.dias<30).length;
-    const atencao=dados.filter(p=>p.status==='atencao').length;
-    const ok=dados.filter(p=>p.status==='ok').length;
-    renderDonut(atrasados,risco,atencao,ok);
+    
+    // ← LÓGICA CORRETA DE CONTAGEM
+    const atrasados = dados.filter(p => p.dias < 0 || p.diferenca_percent > 10).length;
+    const risco = dados.filter(p => p.dias >= 0 && p.diferenca_percent > 0 && p.diferenca_percent <= 10).length;
+    const atencao = dados.filter(p => p.dias >= 0 && p.dias <= 30 && p.diferenca_percent <= 0).length;
+    const ok = dados.filter(p => p.dias > 30 && p.diferenca_percent <= 0).length;
+    
+    renderDonut(atrasados, risco, atencao, ok);
     renderMini(dados);
-    renderKpis(atrasados,risco,atencao,ok);
+    renderKpis(atrasados, risco, atencao, ok);
   }catch(e){console.error(e);document.getElementById('tableBody').innerHTML=`<div class="loading">Erro ao carregar: ${e.message}</div>`;}
 }
 
-function renderKpis(a,r,v,o){
+function renderKpis(a, r, v, o){
   const html=`
     <div class="hero-kpi" onclick="filtrar('atrasado')">
       <div class="hero-top"><div class="hero-icon red">⚠</div><div class="hero-pct"></div></div>
       <div class="hero-num">${a}</div>
       <div class="hero-lbl">Atrasados</div>
+      <div class="hero-count">${a} projeto${a !== 1 ? 's' : ''}</div>
     </div>
     <div class="hero-kpi" onclick="filtrar('risco')">
       <div class="hero-top"><div class="hero-icon orange">⚡</div><div class="hero-pct"></div></div>
       <div class="hero-num">${r}</div>
       <div class="hero-lbl">Risco de atraso</div>
+      <div class="hero-count">${r} projeto${r !== 1 ? 's' : ''}</div>
     </div>
     <div class="hero-kpi" onclick="filtrar('atencao')">
       <div class="hero-top"><div class="hero-icon yellow">⏱</div><div class="hero-pct"></div></div>
       <div class="hero-num">${v}</div>
       <div class="hero-lbl">Vencen em 30d</div>
+      <div class="hero-count">${v} projeto${v !== 1 ? 's' : ''}</div>
     </div>
     <div class="hero-kpi" onclick="filtrar('ok')">
       <div class="hero-top"><div class="hero-icon green">✓</div><div class="hero-pct"></div></div>
       <div class="hero-num">${o}</div>
       <div class="hero-lbl">No prazo</div>
+      <div class="hero-count">${o} projeto${o !== 1 ? 's' : ''}</div>
     </div>
   `;
   document.getElementById('kpis').innerHTML=html;
 }
 
 function renderTable(){
-  const listas=[{lista:dados.filter(p=>p.status==='atrasado'),cls:'red'},{lista:dados.filter(p=>p.status==='atencao'),cls:'yellow'},{lista:dados.filter(p=>p.status==='ok'),cls:'green'}];
+  const listas=[{lista:dados.filter(p => p.dias < 0 || p.diferenca_percent > 10),cls:'red'},{lista:dados.filter(p => p.dias >= 0 && p.diferenca_percent > 0 && p.diferenca_percent <= 10),cls:'orange'},{lista:dados.filter(p => p.dias >= 0 && p.dias <= 30 && p.diferenca_percent <= 0),cls:'yellow'},{lista:dados.filter(p => p.dias > 30 && p.diferenca_percent <= 0),cls:'green'}];
   let html='';
   listas.forEach(({lista,cls})=>{
     lista.forEach(p=>{
@@ -245,7 +253,6 @@ function renderTable(){
           ${pG!==null&&pA!==null?`<div class="dual-bar-diff-label" style="color:${diffCls==='behind'?'var(--red)':diffCls==='ahead'?'var(--green)':'var(--muted)'}">${diffTxt}</div>`:''}
         </div>`:'—';
       
-      // ← SITUACAO INLINE NO NOME
       const situacao=p.situacao?p.situacao.toLowerCase().trim():'';
       const situacaoCls=situacao==='andamento'?'andamento':situacao==='stand by'||situacao==='standby'?'standby':situacao==='implantado'?'implantado':situacao?'other':'';
       const situacaoLabel=situacao?situacao.charAt(0).toUpperCase()+situacao.slice(1):'';
